@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import uz.shoxrux.core.cache.LocaleCache
 import uz.shoxrux.core.constants.NavRoutes
 import uz.shoxrux.presentation.screens.auth.LoginScreen
+import uz.shoxrux.presentation.screens.on_board.OnBoardScreen
 
 @Composable
 fun AppNavHost(cache: LocaleCache) {
@@ -27,7 +28,7 @@ fun AppNavHost(cache: LocaleCache) {
         composable(NavRoutes.SPLASH_SCREEN) { }
 
         composable(NavRoutes.ONBOARD_SCREEN) {
-            Text("Onboard screen")
+            OnBoardScreen(navController, cache)
         }
 
     }

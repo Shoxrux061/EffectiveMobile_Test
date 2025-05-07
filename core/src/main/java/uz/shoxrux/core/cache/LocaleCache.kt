@@ -10,7 +10,7 @@ class LocaleCache @Inject constructor(
 
     private val isFirstKey = "IS_FIRST_KEY"
 
-    fun saveIsFirst() {
+    fun saveIsNotFirst() {
         sharedPreferences.edit { putBoolean(isFirstKey, false) }
     }
 
