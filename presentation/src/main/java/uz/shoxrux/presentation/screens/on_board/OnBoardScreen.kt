@@ -22,7 +22,7 @@ import androidx.navigation.NavHostController
 import uz.shoxrux.core.cache.LocaleCache
 import uz.shoxrux.core.constants.NavRoutes
 import uz.shoxrux.presentation.R
-import uz.shoxrux.presentation.components.AppButton
+import uz.shoxrux.presentation.ui.components.AppButton
 import uz.shoxrux.presentation.ui.colors.BackgroundColor
 import uz.shoxrux.presentation.ui.colors.White
 

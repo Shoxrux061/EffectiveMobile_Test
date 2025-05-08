@@ -32,14 +32,13 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import uz.shoxrux.core.constants.NavRoutes
 import uz.shoxrux.presentation.R
-import uz.shoxrux.presentation.components.AppButton
-import uz.shoxrux.presentation.components.CustomTextFieldWithHeader
+import uz.shoxrux.presentation.ui.components.AppButton
+import uz.shoxrux.presentation.ui.components.CustomTextFieldWithHeader
 import uz.shoxrux.presentation.ui.colors.BackgroundColor
 import uz.shoxrux.presentation.ui.colors.Blue
 import uz.shoxrux.presentation.ui.colors.Green
@@ -85,8 +84,10 @@ fun LoginScreen(navController: NavHostController) {
             hint = "Email",
             hint2 = "example@gmail.com",
             value = email.value,
-            onValueChange = {
-                email.value = it
+            onValueChange = { newValue ->
+                val filtered =
+                    newValue.filter { it in 'a'..'z' || it in 'A'..'Z' || it.isDigit() || it in "@._-" }
+                email.value = filtered
             },
             isEmpty = isSubmitted.value && email.value.isEmpty()
         )
@@ -98,6 +99,7 @@ fun LoginScreen(navController: NavHostController) {
             hint2 = "Введите пароль",
             value = password.value,
             onValueChange = {
+
                 password.value = it
             },
             isEmpty = isSubmitted.value && password.value.isEmpty()
@@ -108,7 +110,9 @@ fun LoginScreen(navController: NavHostController) {
         AppButton(
 
             onCLick = {
-                navController.navigate(NavRoutes.MAIN_SCREEN)
+                if (isValid) {
+                    navController.navigate(NavRoutes.MAIN_SCREEN)
+                }
             },
             text = "Вход",
             modifier = Modifier.alpha(if (!isValid) 0.5f else 1f)

@@ -1,4 +1,4 @@
-package uz.shoxrux.presentation.components
+package uz.shoxrux.presentation.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -8,18 +8,19 @@ import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -33,10 +34,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import uz.shoxrux.presentation.R
-import uz.shoxrux.presentation.ui.colors.BackgroundColor
 import uz.shoxrux.presentation.ui.colors.Blue
 import uz.shoxrux.presentation.ui.colors.Green
 import uz.shoxrux.presentation.ui.colors.Error1
+import uz.shoxrux.presentation.ui.colors.Error2
 import uz.shoxrux.presentation.ui.colors.LightGray
 import uz.shoxrux.presentation.ui.colors.TextSecondary
 import uz.shoxrux.presentation.ui.colors.Transparent
@@ -140,4 +141,46 @@ fun AppButton(
         )
     }
 
+}
+
+@Composable
+fun LoadingBar() {
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(56.dp)
+                .align(Alignment.Center),
+            color = Green
+        )
+    }
+
+}
+
+@Composable
+fun ErrorBar(error: String) {
+
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(Error2),
+        border = BorderStroke(width = 1.dp, color = Error1),
+        shape = RoundedCornerShape(10.dp)
+    ) {
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(
+                text = error,
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    color = Error1,
+                    fontFamily = FontFamily(Font(R.font.roboto_semi_bold))
+                )
+            )
+        }
+
+    }
 }

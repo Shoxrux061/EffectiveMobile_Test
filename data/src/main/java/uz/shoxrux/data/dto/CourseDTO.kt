@@ -8,5 +8,6 @@ data class CourseDTO(
     val rate: String,
     val startDate: String,
     val text: String,
-    val title: String
+    val title: String,
+    val image: String
 )

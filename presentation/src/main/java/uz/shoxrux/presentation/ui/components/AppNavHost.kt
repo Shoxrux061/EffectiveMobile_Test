@@ -1,17 +1,21 @@
-package uz.shoxrux.presentation.components
+package uz.shoxrux.presentation.ui.components
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import uz.shoxrux.core.cache.LocaleCache
 import uz.shoxrux.core.constants.NavRoutes
 import uz.shoxrux.presentation.screens.auth.LoginScreen
+import uz.shoxrux.presentation.screens.main.MainScreen
+import uz.shoxrux.presentation.screens.main.home.HomePage
+import uz.shoxrux.presentation.screens.main.home.HomePageViewModel
 import uz.shoxrux.presentation.screens.on_board.OnBoardScreen
 
 @Composable
 fun AppNavHost(cache: LocaleCache) {
+
     val navController = rememberNavController()
 
     NavHost(
@@ -23,7 +27,9 @@ fun AppNavHost(cache: LocaleCache) {
             LoginScreen(navController)
         }
 
-        composable(NavRoutes.MAIN_SCREEN) { }
+        composable(NavRoutes.MAIN_SCREEN) {
+            MainScreen()
+        }
 
         composable(NavRoutes.SPLASH_SCREEN) { }
 

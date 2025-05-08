@@ -13,7 +13,8 @@ fun CourseDTO.toDomain(): Course {
         rate = this.rate,
         startDate = this.startDate,
         text = this.text,
-        title = this.title
+        title = this.title,
+        image = this.image
     )
 
 }
