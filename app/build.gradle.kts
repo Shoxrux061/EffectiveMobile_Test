@@ -4,7 +4,8 @@ plugins {
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.org.jetbrains.kotlin.kapt)
+    alias(libs.plugins.ksp)
+
 }
 
 android {
@@ -51,7 +52,6 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -68,12 +68,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.navigation.compose)
-    debugImplementation(libs.androidx.ui.test.manifest)
     api(libs.kotlinx.serialization.json)
 
     //Dagger Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
 
 
     //Retrofit
@@ -87,10 +86,13 @@ dependencies {
     // Gson
     implementation(libs.gson)
 
+    //Room Database
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
 }
-kapt {
-    correctErrorTypes = true
-}
+
 hilt {
     enableAggregatingTask = true
 }

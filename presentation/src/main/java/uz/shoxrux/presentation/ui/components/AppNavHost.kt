@@ -9,8 +9,6 @@ import uz.shoxrux.core.cache.LocaleCache
 import uz.shoxrux.core.constants.NavRoutes
 import uz.shoxrux.presentation.screens.auth.LoginScreen
 import uz.shoxrux.presentation.screens.main.MainScreen
-import uz.shoxrux.presentation.screens.main.home.HomePage
-import uz.shoxrux.presentation.screens.main.home.HomePageViewModel
 import uz.shoxrux.presentation.screens.on_board.OnBoardScreen
 
 @Composable

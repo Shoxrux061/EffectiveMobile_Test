@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import uz.shoxrux.data.network.CourseService
 import uz.shoxrux.data.repository.CoursesRepositoryImpl
+import uz.shoxrux.data.room.dao.SaveDao
 import uz.shoxrux.domain.repository.CoursesRepository
 import uz.shoxrux.domain.use_case.CourseUseCase
 import javax.inject.Singleton
@@ -21,8 +22,8 @@ object CoursesModule {
     }
 
     @[Provides Singleton]
-    fun provideCourseRepository(service: CourseService): CoursesRepository {
-        return CoursesRepositoryImpl(service)
+    fun provideCourseRepository(service: CourseService, dao: SaveDao): CoursesRepository {
+        return CoursesRepositoryImpl(service, dao)
     }
 
     @[Provides Singleton]

@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.org.jetbrains.kotlin.kapt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -56,15 +56,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
-
     //Dagger Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
 
     //Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-
 
     //Chucker
     debugImplementation(libs.library)
@@ -77,7 +75,9 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
 
-}
-kapt {
-    correctErrorTypes = true
+    //Room Database
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
 }

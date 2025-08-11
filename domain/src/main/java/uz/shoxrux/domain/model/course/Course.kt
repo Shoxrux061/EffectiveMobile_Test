@@ -1,4 +1,4 @@
-package uz.shoxrux.domain.model
+package uz.shoxrux.domain.model.course
 
 data class Course(
     val hasLike: Boolean,

@@ -5,7 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.android.junit)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.org.jetbrains.kotlin.kapt)
+    alias(libs.plugins.ksp)
+
 }
 
 android {
@@ -73,7 +74,7 @@ dependencies {
 
     //Dagger Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
 
     //Masked Edit Text
     implementation(libs.compose.input.mask)
@@ -88,7 +89,4 @@ dependencies {
     //System Ui Controller
     implementation(libs.accompanist.systemuicontroller)
 
-}
-kapt {
-    correctErrorTypes = true
 }

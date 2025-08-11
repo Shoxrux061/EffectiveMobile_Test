@@ -1,6 +1,6 @@
 package uz.shoxrux.presentation.screens.main.home
 
-import uz.shoxrux.domain.model.Course
+import uz.shoxrux.domain.model.course.Course
 
 data class HomeUiState(
     val courses: List<Course>? = emptyList(),

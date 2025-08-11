@@ -1,5 +1,7 @@
 package uz.shoxrux.presentation.screens.auth
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -45,12 +48,14 @@ import uz.shoxrux.presentation.ui.colors.Green
 import uz.shoxrux.presentation.ui.colors.Orange1
 import uz.shoxrux.presentation.ui.colors.Stroke
 import uz.shoxrux.presentation.ui.colors.White
+import androidx.core.net.toUri
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
 
     val isSubmitted = remember { mutableStateOf(false) }
 
+    val context = LocalContext.current
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val emailPattern = Regex(stringResource(R.string.email_regax))
@@ -159,7 +164,8 @@ fun LoginScreen(navController: NavHostController) {
 
             Button(
                 onClick = {
-
+                    val intent = Intent(Intent.ACTION_VIEW, "https://m.vk.com/".toUri())
+                    context.startActivity(intent)
                 },
                 modifier = Modifier
                     .weight(1f)
@@ -178,7 +184,8 @@ fun LoginScreen(navController: NavHostController) {
 
             Button(
                 onClick = {
-
+                    val intent = Intent(Intent.ACTION_VIEW, "https://ok.ru/".toUri())
+                    context.startActivity(intent)
                 },
                 modifier = Modifier
                     .weight(1f)

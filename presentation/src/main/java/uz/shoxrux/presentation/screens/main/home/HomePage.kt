@@ -1,6 +1,7 @@
 package uz.shoxrux.presentation.screens.main.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,21 +34,24 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import uz.shoxrux.presentation.R
+import uz.shoxrux.presentation.screens.main.MainViewModel
 import uz.shoxrux.presentation.ui.components.ErrorBar
 import uz.shoxrux.presentation.ui.components.LoadingBar
 import uz.shoxrux.presentation.ui.colors.BackgroundColor
 import uz.shoxrux.presentation.ui.colors.DarkGray
 import uz.shoxrux.presentation.ui.colors.Green
 import uz.shoxrux.presentation.ui.colors.TextHint
-import uz.shoxrux.presentation.ui.colors.TextSecondary
 
 @Composable
-fun HomePage(viewModel: HomePageViewModel) {
+fun HomePage(viewModel: MainViewModel) {
+
+    val isSorted = remember { mutableStateOf(false) }
 
     val homeUiState = viewModel.homeUiState.collectAsState().value
-    val courses = homeUiState.courses
+    val courses = if (isSorted.value) homeUiState.courses?.sortedByDescending { it.publishDate } else homeUiState.courses
     val isLoading = homeUiState.isLoading
     val error = homeUiState.error
+
 
     Column(
         modifier = Modifier
@@ -118,10 +124,15 @@ fun HomePage(viewModel: HomePageViewModel) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable {
+                        isSorted.value = !isSorted.value
+                    },
                 text = "По дате обновления",
                 style = TextStyle(
                     fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                    color = Green,
+                    color = Green.copy(alpha = if (isSorted.value) 1f else 0.5f),
                     fontSize = 16.sp
                 )
             )
@@ -139,7 +150,7 @@ fun HomePage(viewModel: HomePageViewModel) {
         if (courses != null) {
 
             LazyColumn {
-                items(4) {
+                items(courses.size) {
                     CourseItem(
                         title = courses[it].title,
                         description = courses[it].text,
@@ -147,7 +158,14 @@ fun HomePage(viewModel: HomePageViewModel) {
                         date = courses[it].startDate,
                         rating = courses[it].rate,
                         liked = courses[it].hasLike,
-                        image = courses[it].image
+                        image = courses[it].image,
+                        onSaveClick = {
+                            if (courses[it].hasLike) {
+                                viewModel.deleteCourse(courses[it].id)
+                            } else {
+                                viewModel.saveCourse(courses[it])
+                            }
+                        }
                     )
 
                     Spacer(modifier = Modifier.height(20.dp))

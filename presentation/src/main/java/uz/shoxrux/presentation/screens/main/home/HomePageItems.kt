@@ -19,6 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import uz.shoxrux.core.utils.toHumanDate
 import uz.shoxrux.presentation.R
 import uz.shoxrux.presentation.ui.colors.DarkGray
 import uz.shoxrux.presentation.ui.colors.Green
@@ -48,7 +51,8 @@ fun CourseItem(
     liked: Boolean,
     date: String,
     price: String,
-    image: String
+    image: String,
+    onSaveClick: () -> Unit
 ) {
 
     Card(
@@ -76,18 +80,23 @@ fun CourseItem(
                         contentScale = ContentScale.Crop
                     )
 
-                    Box(
+
+                    IconButton(
                         modifier = Modifier
                             .padding(10.dp)
-                            .size(28.dp)
                             .clip(CircleShape)
                             .background(SemiTransparent)
                             .align(Alignment.TopEnd)
+                            .size(28.dp),
+                        onClick = {
+                            onSaveClick.invoke()
+                        }
                     ) {
-                        Image(
+                        Icon(
                             modifier = Modifier.align(Alignment.Center),
                             painter = painterResource(if (liked) R.drawable.ic_saved else R.drawable.ic_not_saved),
-                            contentDescription = null
+                            contentDescription = null,
+                            tint = if (liked) Green else White
                         )
                     }
 
@@ -95,7 +104,6 @@ fun CourseItem(
                         modifier = Modifier
                             .align(Alignment.BottomStart)
                     ) {
-
 
                         Box(
                             modifier = Modifier
@@ -141,7 +149,7 @@ fun CourseItem(
                             ) {
 
                                 Text(
-                                    text = date,
+                                    text = date.toHumanDate(),
                                     style = TextStyle(
                                         fontFamily = FontFamily(Font(R.font.roboto_regular)),
                                         color = White,
